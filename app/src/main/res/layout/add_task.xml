@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    android:weightSum="100">
+
+    <EditText
+        android:id="@+id/mTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="25dp" />
+
+    <DatePicker
+        android:id="@+id/mDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mTime"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:calendarViewShown="false"
+        android:clickable="false"
+        android:datePickerMode="spinner"
+        android:scaleX="0.9"
+        android:scaleY="0.9" />
+
+
+    <TimePicker
+        android:id="@+id/mTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:scaleX="0.9"
+        android:scaleY="0.9"
+        android:theme="@style/Base.AlertDialog.AppCompat"
+        android:timePickerMode="spinner" />
+
+
+</RelativeLayout>
