@@ -22,6 +22,7 @@ public class EditTaskActivity extends AppCompatActivity {
         editTask.setText(str);
         editTask.requestFocus();
         Button updateButton = (Button) findViewById(R.id.update_button);
+        Button deleteButton = (Button) findViewById(R.id.delete_button);
         Button cancelButton = (Button) findViewById(R.id.cancel_button);
 
         updateButton.setOnClickListener(new View.OnClickListener() {
@@ -29,6 +30,16 @@ public class EditTaskActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(EditTaskActivity.this, MainActivity.class);
                 intent.putExtra(ConstantsDef.NEW_TASK_DESC, editTask.getText().toString());
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EditTaskActivity.this, MainActivity.class);
+                intent.putExtra(ConstantsDef.NEW_TASK_DESC, ConstantsDef.DELETE_TASK);
                 startActivity(intent);
                 finish();
             }
@@ -44,9 +55,6 @@ public class EditTaskActivity extends AppCompatActivity {
 
     }
 
-    public void EditTask() {
-
-    }
 
 
 }

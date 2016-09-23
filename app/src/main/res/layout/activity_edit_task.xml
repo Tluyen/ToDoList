@@ -23,29 +23,37 @@
         android:id="@+id/edit_task_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_alignEnd="@+id/text_label"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/text_label"
         android:layout_below="@+id/text_label"
-        android:editable="true"
         android:elegantTextHeight="true"
         android:enabled="true"
         android:focusable="true"
-        android:minLines="1"
+        android:maxLines="1"
         android:theme="@style/AlertDialog.AppCompat.Light" />
 
     <Button
         android:id="@+id/update_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="147dp"
+        android:layout_alignEnd="@+id/edit_task_desc"
+        android:layout_alignRight="@+id/edit_task_desc"
+        android:layout_below="@+id/edit_task_desc"
+        android:layout_marginTop="73dp"
         android:layout_weight="7"
         android:background="#6faae1"
         android:text="Update" />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/update_button"
+        android:layout_centerHorizontal="true"
+        android:background="#6faae1"
+        android:text="Delete" />
 
     <Button
         android:id="@+id/cancel_button"
@@ -53,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/update_button"
+        android:layout_alignTop="@+id/delete_button"
         android:background="#6faae1"
         android:text="Cancel" />
 
