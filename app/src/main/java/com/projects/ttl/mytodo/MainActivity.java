@@ -13,15 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+
 public class MainActivity extends AppCompatActivity {
     private static String TAG = "MainActivity";
+
     private static Object o;
     private static long taskID;
     private TaskDBHelper mHelper;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            String updatedTaskName = (String) bundle.get("Update Task Name");
+            String updatedTaskName = (String) bundle.get(ConstantsDef.NEW_TASK_DESC);
             updateTask(o, updatedTaskName, taskID);
         } else {
 
@@ -68,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View v, int pos, long id) {
                 o = mTaskListView.getItemAtPosition(pos);
                 taskID = id + 1;
-                //selectedItem = mTaskListView.getItem(pos);
                 Intent i = new Intent(MainActivity.this, EditTaskActivity.class);
+                i.putExtra(ConstantsDef.CURRENT_TASK_DESC, o.toString());
                 startActivity(i);
 
             }
@@ -87,54 +88,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // View v = (View) setView(R.layout.add_task);
         final EditText taskEditText = new EditText(this);
-        //  setContentView(R.layout.add_task);
-        //   final EditText taskEditText = (EditText) findViewById(R.id.mTask);
         final TextView txtDueDateLabel = new TextView(this);
-        //final DatePicker taskDueDate = new DatePicker(this);
-        final DatePicker taskDueDate = (DatePicker) (findViewById(R.id.mDate));
-        //  final TimePicker taskDueTime =  (TimePicker) (findViewById(R.id.mTime));
-        //final TimePicker taskDueTime = new TimePicker(this);
-        // final Calendar c= Calendar.getInstance();
-        // taskEditText.setTextColor(Color.BLUE);
-        //taskDueDate.setBackgroundColor(Color.BLUE);
-        //taskDueDate.setScaleX((float) 0.8);
-        // taskDueDate.setScaleY((float) 0.8);
-        // taskDueTime.setScaleX((float) 0.3);
-        // taskDueTime.setScaleY((float) 0.3);
-        //  txtDueDateLabel.setText("Due Date");
-        //taskDueDate.setMinDate(c.get(Calendar.DATE));
 
 
-        // taskDueTime.setBackgroundColor(Color.BLUE);
-        switch (item.getItemId()) {
-            case R.id.action_add_task:
-                //   LinearLayout ll = new LinearLayout(this);
-                //   ll.setOrientation(LinearLayout.VERTICAL);
-                //  ll.addView(taskEditText);
-                //   ll.addView(txtDueDateLabel);
-                //   ll.addView(taskDueDate);
+        if (item.getItemId() == R.id.action_add_task) {
                 setTheme(0);
-
                 AlertDialog dialog = new AlertDialog.Builder(this)
-                        .setTitle("Add New Task")
-
+                        .setTitle(ConstantsDef.ADD_NEW_TASK_TITLE)
                         .setView((taskEditText))
                         .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // String task = String.valueOf(findViewById(R.layout.add_task.mTask.getText()));
                                 String task = taskEditText.getText().toString();
-                                // int mMonth = taskDueDate.getMonth();
-                                // int mDay = taskDueDate.getDayOfMonth();
-                                // int mYear = taskDueDate.getYear();
-                                //  String strDueDate = mMonth + "-" + mDay + "-" + mYear;
                                 SQLiteDatabase db = mHelper.getWritableDatabase();
                                 ContentValues values = new ContentValues();
                                 if (task != null || task != "") {
                                     values.put(TaskContract.TaskEntry.COL_TASK_TITLE, task);
-                                    //values.put(TaskContract.TaskEntry.COL_TASK_DATE, strDueDate);
                                     db.insertWithOnConflict(TaskContract.TaskEntry.TABLE,
                                             null,
                                             values,
@@ -148,48 +118,14 @@ public class MainActivity extends AppCompatActivity {
 
                         .setNegativeButton("Cancel", null)
                         .create();
-                dialog.show();
 
-
+            taskEditText.requestFocus();
+            dialog.show();
         }
         return super.onOptionsItemSelected(item);
     }
 
-/*
-    private void updateList() {
-        int index;
 
-
-        ArrayList<String> taskList = new ArrayList<>();
-        SQLiteDatabase db = mHelper.getReadableDatabase();
-
-        String strTaskString[] = new String[]{TaskContract.TaskEntry.COL_TASK_TITLE};
-
-        Cursor dbCursor = db.query(TaskContract.TaskEntry.TABLE,
-                strTaskString, null, null, null, null, null);
-
-        while (dbCursor.moveToNext()) {
-            index = dbCursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
-            taskList.add(dbCursor.getString(index));
-
-        }
-
-        if (mAdapter == null) {
-            //  mAdapter = new ArrayAdapter<>(this, R.layout.item_todo,R.id.task_title, taskList);
-            // mTaskListView.setAdapter(mAdapter);
-            mAdapter = new ArrayAdapter<String>(this, R.layout.activity_main, R.id.task_title, taskList);
-            mTaskListView.setAdapter(mAdapter);
-
-        } else {
-            mAdapter.clear();
-            mAdapter.addAll(taskList);
-            mAdapter.notifyDataSetChanged();
-        }
-        dbCursor.close();
-        db.close();
-
-    }
-*/
 
     private void updateList() {
         int index;

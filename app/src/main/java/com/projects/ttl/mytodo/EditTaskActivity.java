@@ -8,8 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class EditTaskActivity extends AppCompatActivity {
-    public String CURRENT_TASK_DESC = "CurrentTaskDesc";
-    public String NEW_TASK_DESC = "NewTaskDesc";
     private String str;
 
     @Override
@@ -20,7 +18,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
         final EditText editTask = (EditText) (findViewById(R.id.edit_task_desc));
         Bundle bundle = getIntent().getExtras();
-        str = (String) bundle.get(CURRENT_TASK_DESC);
+        str = (String) bundle.get(ConstantsDef.CURRENT_TASK_DESC);
         editTask.setText(str);
         editTask.requestFocus();
         Button updateButton = (Button) findViewById(R.id.update_button);
@@ -30,7 +28,7 @@ public class EditTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EditTaskActivity.this, MainActivity.class);
-                intent.putExtra(NEW_TASK_DESC, editTask.getText().toString());
+                intent.putExtra(ConstantsDef.NEW_TASK_DESC, editTask.getText().toString());
                 startActivity(intent);
                 finish();
             }
